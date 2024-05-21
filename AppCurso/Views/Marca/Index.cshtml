@@ -1,0 +1,80 @@
+﻿@using AppCurso.Models
+@model List<MarcaCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Agregar", "Agregar", "Marca", null, new { @class = "btn btn-primary" })
+@using (Html.BeginForm("Index", "Marca", FormMethod.Post))
+{
+    <div class="col-md-12">
+        @Html.Label("Ingrese nombre")
+
+        @Html.TextBox("nombre")
+
+        <input type="submit" class="btn btn-success" value="Enviar" />
+    </div>
+
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td width="10%">@Html.LabelFor(p => Model[0].id_marca)</td>
+                <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
+                <td width="60%">@Html.LabelFor(p => Model[0].descripcion)</td>
+                <td width="10">Operaciones</td>
+            </tr>
+
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id_marca</td>
+                    <td>@item.nombre</td>
+                    <td>@item.descripcion</td>
+                    <td>
+                        @Html.ActionLink(" ", "Editar", "Marca", new { id = @item.id_marca }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                        <button type="button" onclick="mostrarPopup(@item.id_marca)" class="glyphicon glyphicon-trash btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desea guardar los cambios?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="padding:1em">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="Agregar()" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Eliminar", "Marca", FormMethod.Post, new { @id = "frmEliminar" }))
+{
+    @Html.Hidden("id_marca")
+}
+<script>
+    function mostrarPopup(id_marca) {
+        document.getElementById("id_marca").value = id_marca;
+    }
+    function Agregar() {
+        var frmEliminar = document.getElementById("frmEliminar");
+        frmEliminar.submit();
+    }
+</script>

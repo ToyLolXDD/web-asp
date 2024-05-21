@@ -1,0 +1,29 @@
+﻿@using AppCurso.Models;
+@model List<RolCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Ajax.BeginForm("Filtro","",new AjaxOptions
+{
+    HttpMethod="POST",
+    UpdateTargetId="divRol", InsertionMode=InsertionMode.Replace
+}, new { @id="frmFiltro"}))
+{
+    @Html.Label("Ingrese nombre rol")
+    @Html.TextBox("nombre", null, new { @class="form-control"}) 
+    <div id="divRol">
+        @Html.Partial("_TablaRol", Model)
+    </div>
+}
+
+
+<script>
+    var nombre = document.getElementById("nombre")
+    nombre.onkeyup = function () {
+        $("#frmFiltro").trigger("submit");
+    }
+</script>
+
+

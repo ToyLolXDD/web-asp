@@ -1,0 +1,86 @@
+﻿@using AppCurso.Models;
+@model List<EmpleadoCLS>
+@{
+    ViewBag.Title = "Index";
+    List<SelectListItem> listaTipousuario = (List<SelectListItem>)ViewBag.listaTipoUsuario;
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary" })
+<br />
+@using (Html.BeginForm("Index", "Empleado", FormMethod.Get, new { @id = "frmBusqueda" }))
+{
+    @Html.Label("Ingrese tipo de usuario")
+    @Html.DropDownList("idtipoUsuario", listaTipousuario)
+    <input type="submit" value="buscar" class="btn btn-success" />
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <td>@Html.LabelFor(p => Model[0].id_empleado)</td>
+                <td>@Html.LabelFor(p => Model[0].nombre)</td>
+                <td>@Html.LabelFor(p => Model[0].appaterno)</td>
+                <td>@Html.LabelFor(p => Model[0].nombreTipocontrato)</td>
+                <td>@Html.LabelFor(p => Model[0].nombreTipousuario)</td>
+                <td>
+                    Operaciones
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id_empleado</td>
+                    <td>@item.nombre</td>
+                    <td>@item.appaterno</td>
+                    <td>@item.nombreTipocontrato</td>
+                    <td>@item.nombreTipousuario</td>
+                    <td>
+                        @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.id_empleado }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                        <button type="button" onclick="mostrarPopup(@item.id_empleado)" class="glyphicon glyphicon-trash btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desea guardar los cambios?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="padding:1em">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="Agregar()" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Delete", "Empleado", FormMethod.Post, new { @id = "frmEliminar" }))
+{
+    @Html.Hidden("id_empleado")
+}
+<script>
+    function mostrarPopup(id_empleado) {
+        document.getElementById("id_empleado").value = id_empleado;
+    }
+    function Agregar() {
+        var frmEliminar = document.getElementById("frmEliminar");
+        frmEliminar.submit();
+    }
+
+    var tipoUsuario = document.getElementById("idtipoUsuario");
+    tipoUsuario.onchange = function () {
+        
+        var frmBusqueda = document.getElementById("frmBusqueda");
+        frmBusqueda.submit();
+    }
+</script>
+

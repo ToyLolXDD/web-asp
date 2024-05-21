@@ -1,0 +1,52 @@
+﻿@using AppCurso.Models
+@model MarcaCLS
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("Editar", "Marca", FormMethod.Post, new {@id="frmEditar" }))
+        {
+            <div>
+                @Html.LabelFor(p => p.id_marca)
+                @Html.TextBoxFor(p => p.id_marca, new { @class = "form-control" , @readOnly=true})
+                @Html.ValidationMessage("id_marca", new { @class = "text-danger" })
+                
+
+            </div>
+            <div>
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" })
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeError != null)
+                {
+                    @Html.Label(Model.mensajeError, new { @class = "text-danger" })
+                }
+
+            </div>
+            <div>
+                @Html.LabelFor(p => p.descripcion)
+                @Html.TextBoxFor(p => p.descripcion, new { @class = "form-control" })
+                @Html.ValidationMessage("descripcion", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div style="margin:auto">
+                <input type="submit" class="btn btn-primary " value="Guardar" />
+                @Html.ActionLink("Regresaaaaaaa!!!","Index","Marca", null, new {@class="btn btn-danger"})
+            </div>
+        }
+    </div>
+</div>
+<script>
+    var frmEditar = document.getElementById("frmEditar");
+    frmEditar.onsubmit = function (e) {
+        e.preventDefault();
+        if (confirm("Desea guardar la informacion?") == 1) {
+            frmEditar.submit();
+        }
+            
+    }
+</script>

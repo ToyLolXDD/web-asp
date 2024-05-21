@@ -1,0 +1,63 @@
+﻿@using AppCurso.Models
+@model List<SucursalCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("Agregar","Agregar","Sucursal", null, new { @class="btn btn-primary"})
+@using (Html.BeginForm("Index", "Sucursal", FormMethod.Get, new { @id="frmBusqueda"}))
+{
+<div class="col-md-12">
+    @Html.Label("Ingrese nombre")
+
+    @Html.TextBox("nombre")
+
+    <input type="submit" class="btn btn-success" value="Enviar" />
+</div>
+<table class="table table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].id_sucursal)</td>
+            <td>@Html.LabelFor(p => Model[0].nombre)</td>
+            <td>@Html.LabelFor(p => Model[0].telefono)</td>
+            <td>@Html.LabelFor(p => Model[0].email)</td>
+            <td>Operaciones</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.id_sucursal</td>
+                    <td>@item.nombre</td>
+                    <td>@item.telefono</td>
+                    <td>@item.email</td>
+                    <td>
+                        @Html.ActionLink(" ", "Editar", "Sucursal", new { id = @item.id_sucursal }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                        @Html.ActionLink(" ", "Eliminar", "Sucursal", new { id = @item.id_sucursal }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "eliminar" })
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+}
+<script>
+    function eliminarSucursal() {
+        if (confirm("Desea eliminar la cosa?")) {
+            alert("Se elimino correctamente.");
+        }
+        else {
+            event.preventDefault();
+        }
+    }
+    var nombre = document.getElementById("nombre");
+    nombre.onkeyup = function () {
+        var frmBusqueda = document.getElementById("frmBusqueda");
+        frmBusqueda.submit();
+    }
+</script>
+

@@ -1,0 +1,73 @@
+﻿@model IList<AppCurso.Models.TipoUsuarioCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "TipoUsuario", FormMethod.Post, new { @id = "frmBusqueda" }))
+{
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => Model[0].iidTipoUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model[0].nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model[0].descripcion)
+        </th>
+        <th>
+            Operaciones
+        </th> 
+    </tr>
+    <tr>
+        <td>@Html.TextBox("iidTipoUsuario", null, new { @class = "form-control" })</td>
+        <td>@Html.TextBox("nombre", null, new { @class = "form-control" })</td>
+        <td>@Html.TextBox("descripcion", null, new { @class = "form-control" })</td>
+        
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.iidTipoUsuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+}
+<script>
+    var iidTipoUsuario = document.getElementById("iidTipoUsuario");
+    var nombre = document.getElementById("nombre");
+    var descripcion = document.getElementById("descripcion");
+    var frmBusqueda = document.getElementById("frmBusqueda");
+
+    iidTipoUsuario.onkeyup = function () {
+        frmBusqueda.submit();
+    }
+    nombre.onkeyup = function () {
+        frmBusqueda.submit();
+    }
+    descripcion.onkeyup = function () {
+        frmBusqueda.submit();
+    }
+</script>

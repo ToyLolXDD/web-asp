@@ -1,0 +1,43 @@
+﻿@using AppCurso.Models
+@model List<ViajeCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Agregar","Agregar","Viaje", null , new {@class="btn btn-primary"})
+<br />
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>@Html.LabelFor(p=>Model[0].idViaje)</td>
+        <td>@Html.LabelFor(p => Model[0].nombreLugarOrigen)</td>
+        <td>@Html.LabelFor(p => Model[0].nombreLugarDestino)</td>
+        <td>@Html.LabelFor(p => Model[0].nombreBus)</td>
+        <td>Operaciones</td>
+      
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.idViaje</td>
+            <td>@item.nombreLugarOrigen</td>
+            <td>@item.nombreLugarDestino</td>
+            <td>@item.placa</td>
+            <td>
+                @Html.ActionLink(" ", "Editar", "Viaje", new { id = @item.idViaje }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                @Html.ActionLink(" ", "Eliminar", "Viaje", new { id = @item.idViaje }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick="eliminar" })
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function eliminar() {
+        if (confirm("Desea eliminar la cosa?")) {
+            alert("Se elimino correctamente.");
+        }
+        else {
+            event.preventDefault();
+        }
+    }
+</script>

@@ -1,0 +1,96 @@
+﻿@using AppCurso.Models
+@model EmpleadoCLS
+@{
+    ViewBag.Title = "Agregar";
+    List<SelectListItem> listaSexo = (List<SelectListItem>)ViewBag.listaSexo;
+    List<SelectListItem> listaTipoContrato = (List<SelectListItem>)ViewBag.listaTipoContrato;
+    List<SelectListItem> listaTipoUsuario = (List<SelectListItem>)ViewBag.listaTipoUsuario;
+}
+
+<h2>Agregar</h2>
+<div class="row">
+    <div class="col-md-6">
+
+        @using (Html.BeginForm("Agregar", "Empleado", FormMethod.Post, new { @id="frmAgregar"}))
+        {
+            <div>
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" })
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeError != null)
+                {
+                    @Html.Label(Model.mensajeError, new {@class="text-danger"})
+                }
+            </div>
+            <div>
+                @Html.LabelFor(p => p.appaterno)
+                @Html.TextBoxFor(p => p.appaterno, new { @class = "form-control" })
+                @Html.ValidationMessage("appaterno", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.apmaterno)
+                @Html.TextBoxFor(p => p.apmaterno, new { @class = "form-control" })
+                @Html.ValidationMessage("apmaterno", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.fechaContrato)
+                @Html.EditorFor(p => p.fechaContrato, new { htmlattributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("fechaContrato", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.sueldo)
+                @Html.TextBoxFor(p => p.sueldo, new { @class = "form-control" })
+                @Html.ValidationMessage("sueldo", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.idtipoUsuario)
+                @Html.DropDownList("idtipoUsuario", listaTipoUsuario, null, new { @class = "form-control" })
+                @Html.ValidationMessage("idtipoUsuario", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.idtipoContrato)
+                @Html.DropDownList("idtipoContrato", listaTipoContrato, null, new { @class = "form-control" })
+                @Html.ValidationMessage("idtipoContrato", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.idSexo)
+                @Html.DropDownList("idSexo", listaSexo, null, new { @class = "form-control" })
+                @Html.ValidationMessage("idSexo", new { @class = "text-danger" })
+            </div>
+            <div style="margin:auto">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Guardar
+                </button>
+                @Html.ActionLink("Regresa", "Index", "Empleado", new { @class = "btn btn-danger" })
+            </div>
+            
+
+        }
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desea guardar los cambios?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="padding:1em">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="Agregar()" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Agregar() {
+        var frmAgregar = document.getElementById("frmAgregar");
+        frmAgregar.submit();
+    }
+</script>
+

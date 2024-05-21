@@ -1,0 +1,25 @@
+﻿@using AppCurso.Models
+@model List<RolCLS>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].iidRol)</td>
+            <td>@Html.LabelFor(p => Model[0].nombre)</td>
+            <td>@Html.LabelFor(p => Model[0].descripcion)</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.iidRol</td>
+                <td>@item.nombre</td>
+                <td>@item.descripcion</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
